@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 #function for generating Rayleigh noise
 def generate_rayleigh_noise(image, scale_param):
 
-    #generate uniform random values between 0 and 1
+    #c
     uniform_random = np.random.uniform(0, 1, image.shape)
     
     #generate Rayleigh noise using the formula n = b * sqrt(-2 * ln(1 - u))
