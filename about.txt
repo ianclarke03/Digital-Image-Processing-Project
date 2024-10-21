@@ -1,1 +1,18 @@
 Update things here / explain stuff
+
+
+Problem 1: Rayleigh Distributed Noise Generation (Ian Clarke)
+
+The function generate_rayleigh_noise is used for generating Rayleigh distributed noise.
+It takes in 2 parameters, an image that we're going to modify and a scale paramter.
+the function then establishes u, which is a uniformly distributed random variable between 
+0 and 1. The image's dimensions are used to ensure that the generated noise has the same shape
+as the image. Rayleigh noise is then generated and returned based on the formula
+n = b * sqrt( −2 · ln(1 − u) ) where b is our scale paramter and u is the uniformly distributed 
+random variable between 0 and 1
+
+The function add_rayleigh_noise also takes in the image and scale factor parameters and
+checks if the image is in the range [0,255] and normalizes the pixel value to be between [0,1]
+to make future calculations easier. Rayleigh noise is then generated, and added to the image. 
+The image is clip the values to stay within [0, 1] and converted back to range [0, 255]. The
+noisy image is returned and plotted next to the original image, both in grayscale.
