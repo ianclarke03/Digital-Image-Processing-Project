@@ -20,7 +20,9 @@ def generate_rayleigh_noise(image, scale_param):
 #function for adding Rayleigh noise to an image
 def add_rayleigh_noise(image, scale_param):
     #Normalize the image to range [0, 1] if it's not already
-    image_normalized = image / 255.0 if image.max() > 1 else image
+    if image.max() > 1:
+        image_normalized = image / 255.0
+    else image
     
     # Generate Rayleigh noise
     noise = generate_rayleigh_noise(image_normalized, scale_param)
