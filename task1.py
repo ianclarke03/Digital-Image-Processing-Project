@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 #function for generating Rayleigh noise
 def generate_rayleigh_noise(image, scale_param):
 
-    #c
+    #uniformly distributed random variable between 0 and 1
     uniform_random = np.random.uniform(0, 1, image.shape)
     
     #generate Rayleigh noise using the formula n = b * sqrt(-2 * ln(1 - u))
@@ -19,27 +19,28 @@ def generate_rayleigh_noise(image, scale_param):
 
 #function for adding Rayleigh noise to an image
 def add_rayleigh_noise(image, scale_param):
-    #Normalize the image to range [0, 1] if it's not already
-    image_normalized = image / 255.0 if image.max() > 1 else image
+
+    #normalize the image to range [0, 1] if it's not already (to make it easier to add the noise to the image)
+    if image.max() > 1:
+        image_normalized = image / 255.0
+    else: 
+        image
     
-    # Generate Rayleigh noise
+    #generate the Rayleigh noise and add it to the image
     noise = generate_rayleigh_noise(image_normalized, scale_param)
-    
-    # Add noise to the image
     noisy_image = image_normalized + noise
     
-    # Clip the values to stay within [0, 1]
+    #clip the values to stay within [0, 1] and convert back to range [0,255]
     noisy_image = np.clip(noisy_image, 0, 1)
-    
-    # Convert back to range [0, 255]
     noisy_image = (noisy_image * 255).astype(np.uint8)
     
+
     return noisy_image
 
 
 image = cv2.imread('tumor.png', cv2.IMREAD_GRAYSCALE)
 
-noisy_image = add_rayleigh_noise(image, 0.5) #adding Rayleigh noise to the image with a scale parameter of 0.5
+noisy_image = add_rayleigh_noise(image, 0.5) #adding Rayleigh noise to the image with a scale parameter of 0.5, higher scale param = more noise
 
 
 plt.figure(figsize=(10, 5))
